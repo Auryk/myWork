@@ -23,14 +23,12 @@ struct data
 	string state;
 	double money;
 };
-const char *fileName = "crime1.txt";
-ifstream file;
-vector<data>::iterator it;
+
 vector<data> list;
 
 int input()
 {
-	file.open(fileName);
+	ifstream file("crime1.txt");
 	while(!file.eof())
 	{
 		data temp;
@@ -43,39 +41,24 @@ int input()
 
 int printCrime()
 {
-
-	for(it = list.begin(); it != list.end(); it++)
+	for(vector<data>::iterator it = list.begin(); it != list.end(); it++)
 	{
-		cout << (*it).id << endl;
+		cout << it->state << endl;
 	}
 	return 0;
 }
 
-void insertSort(vector<int>::iterator begin, vector<int>::iterator end)
+void stateOrder()
 {
-    for (vector<int>::iterator i = begin + 1; i < end; ++i)
+	vector<data>::iterator i, j;
+
+	for (i = list.begin() + 1; i < list.end(); ++i)
     {
-        for(vector<int>::iterator j = i; *j < *(j - 1) && j > begin; --j )
+        for(j = i; j->state.compare((j-1)->state) && j > list.begin(); --j )
         {
             std::iter_swap((j - 1), j);
         }
     }
-}
-
-int stateOrder()
-{
-	int j;
-	vector<data>::iterator j;
-	data temp;
-
-	for (it = list.begin() + 1; it != list.end(); ++it)
-	{
-		for(j == it;(*j).state.compare(*(j -1)).state) < 0 && j > list.begin(); --j)
-		{
-
-		}
-	}
-	return 0;
 }
 
 int dollarOrder()
@@ -87,7 +70,9 @@ int main()
 {
 	input();
 	printCrime();
-	system("Pause");
+	stateOrder();
+	printCrime();
+	system("pause");
 	return 0;
 }
 
